@@ -7,14 +7,13 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-
-app.get('/todos',async(req,res)=>{
-    const todos = await todo.find({ //db always return promise
-    });
-    res.json({
-        todos
-    })
-
+app.get('/todos', async (req, res) => {
+    try {
+        const todos = await todo.find(); // Retrieve all todos
+        res.json({ todos });
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 });
 
 app.post('/todo',async(req,res)=>{
@@ -40,26 +39,24 @@ app.post('/todo',async(req,res)=>{
 
 });
 
-app.put("/completed",async(req,res)=>{
-    const updatePayLoad = req.body;
-    const parsePayLoad = updateSchema.safeParse(updatePayLoad);
+app.put("/todos/:id", async (req, res) => {
+    try {
+        const todoId = req.params.id;
+        const updatedTodo = await todo.findByIdAndUpdate(
+            todoId,
+            { completed: true },
+            { new: true } // To return the updated todo
+        );
+        
+        if (!updatedTodo) {
+            return res.status(404).json({ msg: "Todo not found" });
+        }
 
-    if (!parsePayLoad.success){
-        res.status(411).json({
-            msg: "wrong input"
-        })
-        return;
+        res.json({ msg: "Todo marked as completed" });
+    } catch (error) {
+        console.error("Error marking todo as completed:", error);
+        res.status(500).json({ msg: "Internal Server Error" });
     }
-    await todo.update({ //1st bracket condition
-        _id:req.body.id
-    }),{
-        completed:true //function
-    }
-    res.json({
-        msg:"Todo marked as completed"
-    })
+});
 
-})
-
-
-app.listen(3000);
+app.listen(3300);

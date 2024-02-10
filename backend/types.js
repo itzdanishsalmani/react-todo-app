@@ -11,6 +11,6 @@ const updateSchema = zod.object({
 
 //export and used in other files
 module.exports = {
-    addTodoSchema:addTodoSchema,
-    updateSchema:updateSchema
+    addTodoSchema,
+    updateSchema
 }

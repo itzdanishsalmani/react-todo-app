@@ -6,6 +6,10 @@
    } 
    ]
 */
+function ClickMe(){
+    
+}
+
 export function Todos({todos}) {
 //it always return one top level parent here is div
     return <div>
@@ -13,7 +17,7 @@ export function Todos({todos}) {
             return <div>
                 <h1>{todo.title}</h1>
                 <h2>{todo.description}</h2>
-                <button>{todo.completed == true ? "Completed" : "Mark as Complete"}</button>
+                <button onClick={ClickMe}>{todo.completed = "Mark as Complete" }</button>
             </div>
         })}
     </div>

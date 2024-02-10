@@ -21,12 +21,12 @@ export function CreateTodo(props) {
             const value = e.target.value;
             setDescription(e.target.value);
         }} />
-
+    
         <button style={{
             margin:10,
             padding:10
         }} onClick={()=>{
-            fetch('http://localhost:3000/todo',{
+            fetch('http://localhost:3300/todo',{
                 method:"POST",
                 body:JSON.stringify({
                     title:title,
