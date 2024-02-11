@@ -1,24 +1,33 @@
-//todos is an array
-/* todos = [
-   {
-    title: "go to gym",
-    description: "go to gym",
-   } 
-   ]
-*/
-function ClickMe(){
-    
-}
+import React, { useState } from 'react';
 
-export function Todos({todos}) {
-//it always return one top level parent here is div
-    return <div>
-        {todos.map(function(todo) {
-            return <div>
-                <h1>{todo.title}</h1>
-                <h2>{todo.description}</h2>
-                <button onClick={ClickMe}>{todo.completed = "Mark as Complete" }</button>
+export function Todos({ todos }) {
+    // Define ClickMe function inside Todos component
+    const ClickMe = ({ index }) => {
+        const [buttonText, setButtonText] = useState('Mark as Done');
+        const [clicked, setClicked] = useState(false);
+
+        const handleClick = () => {
+            if (!clicked) {
+                setButtonText('Done');
+                setClicked(true);
+                // Perform any other actions related to this specific todo item
+            }
+        };
+
+        return (
+            <div key={todos[index].id}>
+                <h1>{todos[index].title}</h1>
+                <h2>{todos[index].description}</h2>
+                <button onClick={handleClick} disabled={clicked}>{buttonText}</button>
             </div>
-        })}
-    </div>
+        );
+    };
+
+    return (
+        <div>
+            {todos.map((todo, index) => (
+                <ClickMe key={index} index={index} />
+            ))}
+        </div>
+    );
 }

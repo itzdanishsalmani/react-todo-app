@@ -1,6 +1,6 @@
 const cors = require("cors");
 const { todo } = require("./db")
-const { addTodoSchema, updateSchema } = require("./types")
+const { addTodoSchema } = require("./types")
 const express = require('express');
 const app = express();
 
@@ -37,26 +37,6 @@ app.post('/todo',async(req,res)=>{
         msg:"Todo created successfully"
     })
 
-});
-
-app.put("/todos/:id", async (req, res) => {
-    try {
-        const todoId = req.params.id;
-        const updatedTodo = await todo.findByIdAndUpdate(
-            todoId,
-            { completed: true },
-            { new: true } // To return the updated todo
-        );
-        
-        if (!updatedTodo) {
-            return res.status(404).json({ msg: "Todo not found" });
-        }
-
-        res.json({ msg: "Todo marked as completed" });
-    } catch (error) {
-        console.error("Error marking todo as completed:", error);
-        res.status(500).json({ msg: "Internal Server Error" });
-    }
 });
 
 app.listen(3300);

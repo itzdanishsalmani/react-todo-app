@@ -5,12 +5,7 @@ const addTodoSchema = zod.object({
     description:zod.string()
 })
 
-const updateSchema = zod.object({
-    id:zod.string()
-})
-
 //export and used in other files
 module.exports = {
-    addTodoSchema,
-    updateSchema
+    addTodoSchema
 }

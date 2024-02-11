@@ -8,15 +8,15 @@ function App() {
   const [todos, setTodos] = useState([]);
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
+    // const intervalId = setInterval(() => {
         fetch("http://localhost:3300/todos")
             .then(response => response.json())
             .then(data => setTodos(data.todos))
             .catch(error => console.error("Error while fetching:", error));
-    }, 5000); // Interval set to 10 seconds (10000 milliseconds)
+    // }, 3000); // Interval set to 10 seconds (10000 milliseconds)
 
     // Clear the interval when the component unmounts
-    return () => clearInterval(intervalId);
+    // return () => clearInterval(intervalId);
 }, []);
 
   
